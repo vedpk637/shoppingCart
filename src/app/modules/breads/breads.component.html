@@ -1,0 +1,23 @@
+<body>
+  <h2>Breads</h2>    
+  <div class="row" >
+      <div class="card" *ngFor="let bread of breads;index as i">
+          <img src={{bread.image}} alt="Avatar" style="height: 187px;">
+          <div class="container">
+            <span style="font-size: 15px;">
+              <h4><b>{{bread.brand}}</b></h4> 
+              <h4>{{bread.price}}</h4> 
+            </span>
+            <!-- <button mat-button color="accent">Add to Cart</button> -->
+            <span  style="font-size: 15px;" *ngIf="!bread.isAdded">
+              <button class="cart" mat-raised-button  (click)="addToCart(bread)">Add to Cart</button>
+            </span>
+            <span *ngIf="bread.isAdded" style="border: 1px solid grey;">
+                <button mat-raised-button color="accent" (click)="onRemoveProduct(bread,i)">-</button>
+                <p style="font-size: 12px;line-height: 30px;margin: 0px;">{{bread.item}} item added</p>
+                <button mat-raised-button color="accent" (click)="onAddProduct(bread)">+</button>
+            </span>
+          </div>
+      </div>
+  </div>
+</body>

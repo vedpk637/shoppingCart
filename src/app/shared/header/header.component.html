@@ -1,0 +1,16 @@
+<mat-toolbar color="primary">
+    <span>
+        <button mat-icon-button style="margin: auto 20px;" (click)="goToHome()">
+            <mat-icon>eco</mat-icon>
+        </button>
+        <button mat-icon-button (click)="onClick()">
+            <mat-icon style="color: aliceblue;" matBadge={{count}} matBadgeColor="warn">shopping_cart</mat-icon>
+        </button>
+    </span>
+    <span>
+        <button mat-button [matMenuTriggerFor]="menu">Ved Prakash &nbsp;&nbsp;<mat-icon>person_outline</mat-icon></button>
+        <mat-menu #menu="matMenu">
+           <button mat-menu-item>Logout</button>
+        </mat-menu>
+    </span>
+</mat-toolbar>

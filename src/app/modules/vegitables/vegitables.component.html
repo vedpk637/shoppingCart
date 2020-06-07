@@ -1,0 +1,25 @@
+<body>
+    <h2>Vegitables Product</h2>
+    
+    <div class="row" >
+        <div class="card" *ngFor="let vegitable of vegitables;index as i">
+            <img src={{vegitable.image}} alt="Avatar" style="height: 187px;">
+            <div class="container">
+              <span style="font-size: 15px;">
+                <h4><b>{{vegitable.brand}}</b></h4> 
+                <h4>{{vegitable.price}}</h4> 
+              </span>
+              <!-- <button mat-button color="accent">Add to Cart</button> -->
+              <span  style="font-size: 15px;" *ngIf="!vegitable.isAdded">
+                <button class="cart" mat-raised-button  (click)="onSelectedProduct(vegitable)">Add to Cart</button>
+              </span>
+              <span *ngIf="vegitable.isAdded" style="border: 1px solid grey;">
+                  <button mat-raised-button color="accent" (click)="onRemoveProduct(vegitable,i)">-</button>
+                  <p style="font-size: 12px;line-height: 30px;margin: 0px;">{{vegitable.item}} item added</p>
+                  <button mat-raised-button color="accent" (click)="onAddProduct(vegitable)">+</button>
+              </span>
+            </div>
+        </div>
+    </div>
+    
+</body>

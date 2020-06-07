@@ -1,0 +1,26 @@
+<body>
+
+    <h2>Seasoning Product</h2>
+    
+    <div class="row" >
+        <div class="card" *ngFor="let item of seasoning;index as i">
+            <img src={{item.image}} alt="Avatar" style="height: 187px;">
+            <div class="container">
+              <span style="font-size: 15px;">
+                <h4><b>{{item.brand}}</b></h4> 
+                <h4>{{item.price}}</h4> 
+              </span>
+              
+              <span  style="font-size: 15px;" *ngIf="!item.isAdded">
+                <button class="cart" mat-raised-button  (click)="onSelectedProduct(item)">Add to Cart</button>
+              </span>
+              <span *ngIf="item.isAdded" style="border: 1px solid grey;">
+                  <button mat-raised-button color="accent" (click)="onRemoveProduct(item,i)">-</button>
+                  <p style="font-size: 12px;line-height: 30px;margin: 0px;">{{item.item}} item added</p>
+                  <button mat-raised-button color="accent" (click)="onAddProduct(item)">+</button>
+              </span>
+            </div>
+        </div>
+    </div>
+    
+</body>

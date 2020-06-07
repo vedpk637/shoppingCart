@@ -1,0 +1,15 @@
+<div class="container">
+    <mat-list role="list">        
+        <button mat-button style="background-color: #3f51b5; color: cornsilk;" routerLink="" (click)="onAllClick()">All Categories</button>
+        <mat-divider></mat-divider>
+          <button mat-button routerLink="/breads" value="Bread" (click)="onBreadClick($event)">Bread</button>
+        <mat-divider></mat-divider>
+          <button mat-button routerLink="/dairy" (click)="onDairyClick(Dairy)">Dairy</button>
+        <mat-divider></mat-divider>
+           <button mat-button routerLink="/fruits" (click)="onFruitsClick(Fruits)">Fruits</button>
+        <mat-divider></mat-divider>
+           <button mat-button routerLink="/seasoning" (click)="onSeasoningClick(Seasoning)">Seasoning and Spices</button>
+        <mat-divider></mat-divider>
+           <button mat-button routerLink="/vegitables" (click)="onVegitablesClick(Vegitables)">Vegitables</button>
+    </mat-list>
+</div>

@@ -1,0 +1,15 @@
+<body>
+    <div class="header">
+      <app-header></app-header>
+    </div>
+    <div class="wrapper">
+      <div class="nav" *ngIf="isCheckOut">
+        <app-side-nav></app-side-nav>
+      </div>
+      <div class="main">
+        <router-outlet></router-outlet>
+      </div>
+    </div>    
+</body>
+
+  
