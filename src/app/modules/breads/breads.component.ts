@@ -9,16 +9,32 @@ import { UtilityserviceService } from 'src/app/utilityservice.service';
 export class BreadsComponent implements OnInit{
   breads=[];
   isAdded:boolean;
-  item=0;
-
+  item=1;
+  tempArray=[];
   storedItemInCart=[];
   constructor(private _utilityServices:UtilityserviceService) { }
   
   ngOnInit() {
-
+    this.tempArray = JSON.parse(localStorage.getItem('header'));          // received data from local storage
     this._utilityServices.breadData().subscribe(res=>{                    // subscribe service data
       this.breads = Object.values(res);                                  // extracting value from object having key pair
-      console.log(this.storedItemInCart,"this.storedItemInCart");
+      console.log(this.breads,"this.storedItemInCart");
+
+      for (let i = 0; i < this.breads.length; i++) {
+        this.breads[i].item =0;
+        this.tempArray.forEach(element => {
+          if(this.breads[i].id === element.id){
+             this.breads[i].item ++;
+             this.breads[i].isAdded = true;
+          }else{
+            this.item=1;
+          }
+          
+        });
+        
+      }
+      // this.breads = this.tempArray;
+  
     })
 
 

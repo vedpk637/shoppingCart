@@ -8,7 +8,7 @@
   align-items: center;
 }
 .container{
-  max-width: 800px;
+  max-width: 1000px;
   width: 100%;
   margin: 20px 5px;
 }
@@ -34,6 +34,7 @@ mat-card-actions{
   flex-direction: row;
   margin: 0;
   line-height: 0px;
+  width: 250px;
 }
   mat-card-header{
     align-items: center;
@@ -51,6 +52,10 @@ mat-card-actions{
 .mat-card>:first-child {
   margin-bottom: 22px;
 }
+mat-card{
+  display: flex;
+  justify-content: space-between;
+}
 
 
 mat-card > span{
@@ -65,4 +70,7 @@ mat-card > span > h3{
 
 details > mat-card{
   width: 300px;
+}
+.Product{
+  width: 150px;
 }

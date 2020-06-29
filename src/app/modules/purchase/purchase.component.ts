@@ -16,11 +16,13 @@ export class PurchaseComponent implements OnInit {
   constructor(private _utilityServices:UtilityserviceService, private router:Router) { }
 
   ngOnInit() {
-    this.recievedItems =  this._utilityServices.getSelectedItems();                  // assigning data from service to received items
-     console.log(this.recievedItems,"getSelectedItems()")
+
+    this.recievedItems =  JSON.parse(localStorage.getItem('header'));                  // assigning data from service to received items
+    // console.log(localStorage.getItem('header'),"purchase")
 
      this.recievedItems.sort((a , b) =>{return a.id - b.id ;})   //sorting of array
-     console.log(this.recievedItems)
+    //  console.log(this.recievedItems,"xit")
+     
 
   // removing repeated items 
     this.filteredItems = this.recievedItems.reduce((acc, current) => {
@@ -35,7 +37,7 @@ export class PurchaseComponent implements OnInit {
     // counting repeated items and replacing item value
     for (let i = 0; i < this.filteredItems.length; i++) {
       this.recievedItems.forEach(element => {
-        if(this.filteredItems[i].id === element.id){
+        if(this.filteredItems[i].id === element.id && this.filteredItems[i].name === element.name){
          this.filteredItems[i].item = this.item++;
          
         }else{
@@ -76,6 +78,8 @@ export class PurchaseComponent implements OnInit {
     }
     this._utilityServices.dataChange.next("data Remove");  // sending value on every change
   }
+
+
   
 
   // check out button function
@@ -83,7 +87,5 @@ export class PurchaseComponent implements OnInit {
       this.router.navigateByUrl('/checkout');
       this._utilityServices.isCheckOut.next(false)
    }
-
-
 
 }

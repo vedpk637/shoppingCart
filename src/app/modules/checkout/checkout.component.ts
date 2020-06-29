@@ -15,7 +15,10 @@ export class CheckoutComponent implements OnInit, OnDestroy{
   formStatus;
   recievedItems=[];
   count;
+  item:number=1;
   totalPrice:number=0;
+  price:number;
+  filteredItems=[];
   constructor(private _utilityServices:UtilityserviceService,public dialog: MatDialog) { 
     
   }
@@ -35,33 +38,50 @@ export class CheckoutComponent implements OnInit, OnDestroy{
     this.formStatus=status})
 
     this._utilityServices.isCheckOut.next(false);
-    this.recievedItems= this._utilityServices.selectedItems;
+    this.recievedItems = JSON.parse(localStorage.getItem('header'));
     this.count = this.recievedItems.length;
-    console.log(this.recievedItems,"checkOut");
-    // this.count = this.items.length;
+    
     this._utilityServices.dataChange.subscribe(res=>{
-      this.recievedItems= this._utilityServices.selectedItems;
-    });
-    // this.count = this.items.length;
-
-
-    let userHashMap = {};
-    this.recievedItems = this.recievedItems.filter((item,_)=>{
-      let alreadyExists = userHashMap.hasOwnProperty(item.id);
-      return alreadyExists? false : userHashMap[item.id] = 1;
-      
+      this.recievedItems = JSON.parse(localStorage.getItem('header'))
     });
 
-    console.log(JSON.stringify(this.recievedItems) + "checkout outer");
 
-   
-    for (let i = 0; i < this.recievedItems.length; i++) {
-      const priceItem = parseInt(this.recievedItems[i].price);
-      const countItem = this.recievedItems[i].item;
-      const price = priceItem * countItem ;
-      this.totalPrice = this.totalPrice + price;
-      console.log(this.totalPrice,"this.totalPrice")
-    }
+   this.recievedItems.sort((a , b) =>{return a.id - b.id ;})   //sorting of array
+
+ // removing repeated items 
+   this.filteredItems = this.recievedItems.reduce((acc, current) => {
+     const x = acc.find(item => item.id === current.id);            
+     if (!x) {
+       return acc.concat([current]);
+     } else {
+       return acc;
+     }
+   }, []);
+    
+   // counting repeated items and replacing item value
+   for (let i = 0; i < this.filteredItems.length; i++) {
+     this.recievedItems.forEach(element => {
+       if(this.filteredItems[i].id === element.id){
+        this.filteredItems[i].item = this.item++;
+        
+       }else{
+        this.item=1;
+       }
+       
+     });
+     
+   }
+   // assigning value to received items
+   this.recievedItems = this.filteredItems;
+
+
+  // counting price 
+   for (let i = 0; i < this.recievedItems.length; i++) {
+     const priceItem = parseInt(this.recievedItems[i].price);
+     const countItem = this.recievedItems[i].item;
+     const price = priceItem * countItem ;
+     this.totalPrice = this.totalPrice + price;
+   }
   }
 
   ngOnDestroy(){

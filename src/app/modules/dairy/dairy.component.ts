@@ -10,13 +10,30 @@ export class DairyComponent implements OnInit {
   dairies=[];
   isAdded:boolean;
   item=0;
+  tempArray=[];
   constructor(private _utilityServices:UtilityserviceService) { }
 
   ngOnInit() {
+    this.tempArray = JSON.parse(localStorage.getItem('header'))
 
     this._utilityServices.dairyData().subscribe(res=>{                    // subscribe srvice function here 
       this.dairies = Object.values(res); 
       console.log(this.dairies);
+
+      for (let i = 0; i < this.dairies.length; i++) {
+        this.dairies[i].item =0;
+        this.tempArray.forEach(element => {
+          if(this.dairies[i].id === element.id){
+             this.dairies[i].item ++;
+             this.dairies[i].isAdded = true;
+          }else{
+            this.item=1;
+          }
+          
+        });
+        
+      }
+
     });
   }
 

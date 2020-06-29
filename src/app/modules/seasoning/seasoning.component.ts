@@ -10,13 +10,30 @@ export class SeasoningComponent implements OnInit {
   seasoning=[];
   isAdded:boolean;
   item=0;
+  tempArray=[];
 
   constructor(private _utilityServices:UtilityserviceService) { }
 
   ngOnInit() {
+    this.tempArray = JSON.parse(localStorage.getItem('header'));
 
     this._utilityServices.seasioningData().subscribe(res=>{
       this.seasoning = Object.values(res); 
+
+      for (let i = 0; i < this.seasoning.length; i++) {
+        this.seasoning[i].item =0;
+        this.tempArray.forEach(element => {
+          if(this.seasoning[i].id === element.id){
+             this.seasoning[i].item ++;
+             this.seasoning[i].isAdded = true;
+          }else{
+            this.item=1;
+          }
+          
+        });
+        
+      }
+
     })
   }
   

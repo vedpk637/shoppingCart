@@ -12,16 +12,12 @@ export class UtilityserviceService {
   isCheckOut = new BehaviorSubject<any>('true');
   dataChange = new Subject<any>();
 
-
   constructor(private _http:HttpClient) { }
     bread:string="https://webdev-a8f7a.firebaseio.com/"+"bread"+".json";
     dairy:string="https://webdev-a8f7a.firebaseio.com/"+"dairy"+".json";
     fruits:string="https://webdev-a8f7a.firebaseio.com/"+"fruits"+".json";
     seasioning:string="https://webdev-a8f7a.firebaseio.com/"+"seasioning"+".json";
     vegitables:string="https://webdev-a8f7a.firebaseio.com/"+"vegitables"+".json";
-    // allData:string
-  //  API_KEY = '16605219-537f0a583adfa8eb5ce252fe9';
-  //  URL = "https://pixabay.com/api/?key="+this.API_KEY+"&q="+encodeURIComponent(this.clickedKey);
 
   breadData():Observable<any>{
      return this._http.get(this.bread)
@@ -49,13 +45,22 @@ export class UtilityserviceService {
   // cartItems = new Subject<any>();
 
 
+
   setSelectedItems(obj){
-    this.selectedItems.push(obj);
+    if(JSON.parse(localStorage.getItem('header')) != null && JSON.parse(localStorage.getItem('header')).length >0){
+      this.selectedItems = JSON.parse(localStorage.getItem('header'));
+    }
+    
+   this.selectedItems.push(obj); 
     // this.cartItems.next(this.selectedItems)
     this.dataChange.next("data Add");
   }
 
   removeSelectedItems(obj,index){
+    // this.selectedItems = JSON.parse(localStorage.getItem('header'));
+    if(JSON.parse(localStorage.getItem('header')) != null && JSON.parse(localStorage.getItem('header')).length >0){
+      this.selectedItems = JSON.parse(localStorage.getItem('header'));
+    }
     let flag = true;
     this.selectedItems.forEach((data, index) => { if (data.brand ===obj.brand) { 
      

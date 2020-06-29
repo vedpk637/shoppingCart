@@ -11,13 +11,30 @@ export class VegitablesComponent implements OnInit {
   vegitables=[];
   isAdded:boolean;
   item=0;
+  tempArray=[];
   constructor(private _utilityServices:UtilityserviceService) { }
 
   ngOnInit() {
+    this.tempArray = JSON.parse(localStorage.getItem('header'));
 
     this._utilityServices.vegitablesData().subscribe(res=>{
       this.vegitables = Object.values(res); 
       console.log(this.vegitables);
+
+      for (let i = 0; i < this.vegitables.length; i++) {
+        this.vegitables[i].item =0;
+        this.tempArray.forEach(element => {
+          if(this.vegitables[i].id === element.id){
+             this.vegitables[i].item ++;
+             this.vegitables[i].isAdded = true;
+          }else{
+            this.item=1;
+          }
+          
+        });
+        
+      }
+
       // console.log(resData)
     })
     // console.log()
